@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup
 import requests
 from lxml import html
 
+user_name = sys.argv[1]
+user_password = sys.argv[2]
+
 session = requests.Session()
 result = session.get('https://student.amizone.net/Home')
 token = result.cookies['__RequestVerificationToken']
@@ -10,7 +13,7 @@ authenticity_token = list(set(tree.xpath("//input[@name='__RequestVerificationTo
 token = session.cookies['__RequestVerificationToken']
 print(f"AUTH TOKEN {authenticity_token}")
 payload = f"__RequestVerificationToken" \
-          "=" + authenticity_token + "&_UserName=7671389&_Password=ecc3f4 "
+          "=" + authenticity_token + f"&_UserName={user_name}&_Password={user_password} "
 headerpayload = {'Host': 'student.amizone.net',
                  'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36',
                  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,/;q=0.8',
